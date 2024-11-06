@@ -19,7 +19,6 @@ export default function Header() {
           <img className="" src={deckview} alt="deckview" />
         </div>
       </Link>
-      <Outlet />
     </div>
   );
 }
