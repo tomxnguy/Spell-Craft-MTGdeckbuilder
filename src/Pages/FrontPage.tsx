@@ -29,6 +29,7 @@ export default function FrontPage() {
                 new Date(b.releaseDate).getTime() -
                 new Date(a.releaseDate).getTime()
             )
+            .slice(1)
         );
       } catch (error) {
         console.error(error);
@@ -50,8 +51,13 @@ export default function FrontPage() {
               navigate(`/set/${set.code}`, { state: { name: set.name } })
             }
           >
-            <div className="pr-1">{`(${set.code}) -`}</div>
-            <div>{`${set.name}`}</div>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:text-left text-center">
+              <div className="pr-1">{`(${set.code}) -`}</div>
+              <div className="text-lg">{set.name}</div>
+              <div className="hidden sm:block pl-2 text-sm text-gray-500">
+                {set.releaseDate}
+              </div>
+            </div>
           </li>
         ))}
       </ul>
