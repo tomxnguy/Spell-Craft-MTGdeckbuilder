@@ -9,7 +9,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<FrontPage />} />
-        <Route path="/cards" element={<CardPage />} />
+        <Route path="/set/:setCode" element={<CardPage />} />
         <Route path="/deck" element={<DeckPage />} />
       </Route>
     </Routes>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { readSets } from "../api";
 
 export type SetProps = {
@@ -12,6 +13,7 @@ export type SetProps = {
 
 export default function FrontPage() {
   const [sets, setSets] = useState<SetProps[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getSetNames() {
@@ -22,24 +24,33 @@ export default function FrontPage() {
             .slice()
             .reverse()
             .filter((set: SetProps) => set.type === "expansion")
+            .sort(
+              (a: SetProps, b: SetProps) =>
+                new Date(b.releaseDate).getTime() -
+                new Date(a.releaseDate).getTime()
+            )
         );
       } catch (error) {
         console.error(error);
       }
     }
     getSetNames();
-    console.log(setSets);
   }, []);
 
   return (
-    <div>
-      <ul>
+    <div className="flex justify-center">
+      <ul className="w-11/12">
         {sets?.map((set, index) => (
           <li
-            className="flex rounded-lg justify-center bg-slate-300 mx-3 my-2"
+            className={`flex rounded justify-center hover:outline px-8 my-2 ${
+              index % 2 === 0 ? "bg-blue-100" : "bg-gray-200"
+            }`}
             key={index}
+            onClick={() =>
+              navigate(`/set/${set.code}`, { state: { name: set.name } })
+            }
           >
-            <div>{`(${set.code})`}</div>
+            <div className="pr-1">{`(${set.code}) -`}</div>
             <div>{`${set.name}`}</div>
           </li>
         ))}
