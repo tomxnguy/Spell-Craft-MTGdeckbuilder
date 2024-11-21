@@ -9,13 +9,18 @@ export default function CardPage() {
   const setName = location.state?.name || "Unknown Set";
 
   const [cards, setCards] = useState<CardProps[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchCards() {
-      if (!setCode) return;
+    async function fetchCards(pageToFetch: number) {
+      if (!setCode || pageToFetch > 4) return;
+
+      setLoading(true);
       try {
         const response = await fetch(
-          `https://api.magicthegathering.io/v1/cards?set=${setCode}`
+          `https://api.magicthegathering.io/v1/cards?set=${setCode}&page=${pageToFetch}`
         );
         const data = await response.json();
 
@@ -26,15 +31,43 @@ export default function CardPage() {
             type: card.type,
             releaseDate: card.releaseDate,
           }));
-          setCards(mappedCards);
+
+          setCards((prevCards) => [...prevCards, ...mappedCards]);
+
+          if (data.cards.length < 100) {
+            setHasMore(false);
+          } else if (pageToFetch === 4) {
+            setHasMore(false);
+          }
+        } else {
+          setHasMore(false);
         }
       } catch (error) {
         console.error("Error fetching cards:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
-    fetchCards();
-  }, [setCode]);
+    fetchCards(page);
+  }, [setCode, page]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+          document.documentElement.offsetHeight - 100 &&
+        hasMore &&
+        !loading &&
+        page < 4
+      ) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasMore, loading, page]);
 
   return (
     <div className="container mx-auto p-4">
@@ -42,6 +75,12 @@ export default function CardPage() {
         {`(${setCode?.toUpperCase()})`} {`${setName}`}
       </h1>
       <CardGrid cards={cards} />
+      {page >= 4 && (
+        <div className="text-center mt-4 text-gray-500">All cards loaded</div>
+      )}
+      {loading && (
+        <div className="text-center mt-4 text-gray-500">Loading cards...</div>
+      )}
     </div>
   );
 }
