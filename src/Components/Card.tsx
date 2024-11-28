@@ -5,7 +5,7 @@ export type CardProps = {
 
 export default function Card({ imageUrl, name }: CardProps) {
   return (
-    <div className="border-radius-lg overflow-hidden ">
+    <div className="cursor-pointer border-radius-lg overflow-hidden ">
       <img
         className="w-full h-fill object-cover"
         src={imageUrl}

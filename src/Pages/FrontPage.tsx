@@ -40,7 +40,7 @@ export default function FrontPage() {
 
   return (
     <div className="flex justify-center">
-      <ul className="w-11/12">
+      <ul className="w-11/12 cursor-pointer">
         {sets?.map((set, index) => (
           <li
             className={`flex rounded justify-center hover:outline px-8 my-2 ${
