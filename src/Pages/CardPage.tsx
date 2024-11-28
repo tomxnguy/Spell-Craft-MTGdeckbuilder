@@ -43,7 +43,7 @@ export default function CardPage() {
           setHasMore(false);
         }
       } catch (error) {
-        console.error("Error fetching cards:", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
