@@ -15,10 +15,10 @@ export default function DeckPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {" "}
           {deck.map((card) => (
-            <div key={card.name} className="relative">
+            <div key={card.id} className="relative">
               <Card {...card} />
               <button
-                onClick={() => removeFromDeck(card.name)}
+                onClick={() => card.id && removeFromDeck(card.id)}
                 className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded"
               >
                 Remove
