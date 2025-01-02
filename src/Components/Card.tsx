@@ -3,6 +3,7 @@ import { useDeck } from "../Components/DeckContext";
 export type CardProps = {
   imageUrl: string;
   name: string;
+  id?: string;
 };
 
 export default function Card({ imageUrl, name }: CardProps) {
