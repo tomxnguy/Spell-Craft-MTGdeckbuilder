@@ -17,6 +17,8 @@ export const DeckProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const addToDeck = (card: CardProps) => {
     setDeck((prevDeck) => [...prevDeck, { ...card, id: uuidv4() }]);
+    const newCard = { ...card, id: uuidv4() };
+    console.log("Card UUID:", newCard.id);
   };
 
   const removeFromDeck = (cardId: string) => {
