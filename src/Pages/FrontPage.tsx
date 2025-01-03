@@ -55,7 +55,7 @@ export default function FrontPage() {
               <div className="pr-1">{`(${set.code}) -`}</div>
               <div className="text-lg">{set.name}</div>
               <div className="hidden sm:block pl-2 text-sm text-gray-500">
-                {set.releaseDate}
+                released: {set.releaseDate}
               </div>
             </div>
           </li>
