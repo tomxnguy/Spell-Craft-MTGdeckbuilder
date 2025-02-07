@@ -1,4 +1,4 @@
-# Welcome to Spell Craft. My Magic the Gathering Deck Builder
+# Welcome to Spell Craft. A Magic the Gathering Deck Builder
 
 A Magic the Gathering (MTG) deck builder application built using **React** and **TypeScript**. This app allows users to view, filter, and add cards to a deck. The deck can be viewed, managed, and modified, with the ability to remove cards as well. The project makes use of the [Magic The Gathering API](https://magicthegathering.io/) to fetch card data and display it dynamically.
 
